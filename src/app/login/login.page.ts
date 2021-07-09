@@ -10,7 +10,7 @@ import {AlertController, LoadingController, NavController, ToastController} from
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-    loadData={username:'orbusbankadmin',password:'passer123'} ;
+    loadData={username:'',password:''} ;
     user:any;
     userForm:FormGroup;
     user1:any;
