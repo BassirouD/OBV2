@@ -1,0 +1,8 @@
+{
+  "name": "orbusBank",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

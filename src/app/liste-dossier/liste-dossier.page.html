@@ -1,0 +1,276 @@
+<ion-header [translucent]="true" scrollEvents="true" (ionScroll)="onScroll($event)">
+    <ion-toolbar color="monvert">
+        <ion-title class="text-white">
+            Dossier par an
+        </ion-title>
+        <ion-buttons slot="start" class="text-white">
+            <ion-back-button (click)="goToOverview()"></ion-back-button>
+        </ion-buttons>
+<!--        <ion-title class="text-white">-->
+<!--            Bienvenue, Djossou-->
+<!--        </ion-title>-->
+        <ion-buttons slot="end">
+            <ion-button class="text-white" (click)="goToProfil()">
+                <ion-icon name="cog-outline" class="ionSizeSetting" slot="end"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <ion-row class="sticky-row">
+        <ion-col size="10">
+            <ion-text class="ion-padding-start" color="medium"
+                      [ngClass]="{'location-visible': showLocationDetail, 'location-hidden': !showLocationDetail}">
+            </ion-text>
+            <ion-searchbar placeholder="Votre recherche ici"></ion-searchbar>
+        </ion-col>
+        <ion-col size="2">
+            <ion-button class="classButom text-white" fill="clear">
+                <ion-icon class="tailleIcon" name="options-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+<!--    <form #f="ngForm" (ngSubmit)="parametrer()">-->
+<!--        <ion-grid>-->
+<!--            <ion-row>-->
+<!--                <ion-col>-->
+<!--                    <ion-item no-lines class="genre">-->
+<!--                        <ion-label style="color: black;">Année 1</ion-label>-->
+<!--                        <ion-input type="text"  [(ngModel)]="loadData.annee1" required="" name="annee1" style="color: black; font-weight: bold;"></ion-input>-->
+<!--                    </ion-item>-->
+<!--                </ion-col>-->
+<!--            </ion-row>-->
+
+<!--            <ion-row>-->
+<!--                <ion-col>-->
+<!--                    <ion-item no-lines class="genre">-->
+<!--                        <ion-label style="color: black;">Année 2</ion-label>-->
+<!--                        <ion-input type="text"  [(ngModel)]="loadData.annee2" required="" name="annee2" style="color: black; font-weight: bold;"></ion-input>-->
+<!--                    </ion-item>-->
+<!--                </ion-col>-->
+<!--            </ion-row>-->
+<!--            <div class="bouton">-->
+<!--                <ion-button color="primary" expand="full" type="submit"><span>Afficher</span></ion-button>-->
+<!--            </div>-->
+<!--        </ion-grid>-->
+<!--    </form>-->
+
+    <form #f="ngForm" (ngSubmit)="parametrer()">
+
+        <div class="cMilieu">
+            <div class="deplaceClass">
+                <h5 class="titleDec">Période allant...</h5>
+                <ion-row>
+                    <ion-col>
+                        <ion-card class="text-center classSelect">
+                            <ion-item>
+                                <ion-row>
+                                    <span>De: </span>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-input type="text" [(ngModel)]="loadData.annee1" required="" name="annee1"></ion-input>
+                                </ion-row>
+                            </ion-item>
+                        </ion-card>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card class="text-center classSelect">
+                            <ion-item>
+                                <ion-row>
+                                    <span>A: </span>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-input type="text" [(ngModel)]="loadData.annee2" required="" name="annee2"></ion-input>
+                                </ion-row>
+                            </ion-item>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+                <div class="btnValider">
+                    <ion-button class="classBtn" color="primary" expand="full" type="submit"><span>Afficher</span></ion-button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    <br>
+
+    <div class="cIon-Segmenent">
+        <ion-segment [formControl]="activeSegment" (ionChange)="segmentChanged($event)" value="list">
+            <ion-segment-button value="list" [ngClass]="{'monvert': activeSegment === 'list'}">
+                <ion-label>Liste des dossiers</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="graphique" (click)="openGraphiqueView()">
+                <ion-label>Voir les graphiques</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </div>
+
+<!--    <ion-row class="classAlign">-->
+<!--        <ion-col size="6"><span>Liste des dossiers</span></ion-col>-->
+<!--        <ion-col size="6">Voir les graphiques</ion-col>-->
+<!--    </ion-row>-->
+
+    <br>
+
+    <!------------------------Vue liste------------------------->
+    <div  *ngIf="activeSegment.value === 'list' && dossiers">
+
+        <div *ngFor="let d of dossiers">
+            <h5 style="margin-left: 10px">{{d.Periode}}</h5>
+
+            <div class="colorLigne">
+                <ion-row>
+                    <ion-col>
+                        <ion-text>
+                            <ion-badge class="badgeIcon">
+                                <ion-icon class="iconFolder text-white" name="folder"></ion-icon>
+                            </ion-badge>
+                        </ion-text>
+                    </ion-col>
+                    <ion-col>
+                        <ion-icon class="iconCalendar" name="calendar-clear-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col>
+                        <p class="valeurClass">{{d.count}}</p>
+                    </ion-col>
+                    <ion-col>
+                        <ion-icon class="iconLoading" name="hourglass"></ion-icon>
+                        <!--                <ion-icon class="iconLoading" name="refresh-circle"></ion-icon>-->
+                    </ion-col>
+                    <ion-col size="3.5" class="smallPP">
+                        <p>{{d.Periode}}</p>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <br>
+        </div>
+
+
+
+<!--        <h5 style="margin-left: 10px">En 2016</h5>-->
+<!--        <div class="colorLigne">-->
+<!--            <ion-row>-->
+<!--                <ion-col>-->
+<!--                    <ion-text>-->
+<!--                        <ion-badge class="badgeIcon">-->
+<!--                            <ion-icon class="iconFolder text-white" name="folder"></ion-icon>-->
+<!--                        </ion-badge>-->
+<!--                    </ion-text>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <ion-icon class="iconCalendar" name="calendar-clear-outline"></ion-icon>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <p class="valeurClass">55526</p>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <ion-icon class="iconLoading" name="hourglass"></ion-icon>-->
+<!--                    &lt;!&ndash;                <ion-icon class="iconLoading" name="refresh-circle"></ion-icon>&ndash;&gt;-->
+<!--                </ion-col>-->
+<!--                <ion-col size="3.5" class="smallPP">-->
+<!--                    <p>2021-01-01</p>-->
+<!--                </ion-col>-->
+<!--            </ion-row>-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <div class="colorLigne">-->
+<!--            <ion-row>-->
+<!--                <ion-col>-->
+<!--                    <ion-text>-->
+<!--                        <ion-badge class="badgeIcon">-->
+<!--                            <ion-icon class="iconFolder text-white" name="folder"></ion-icon>-->
+<!--                        </ion-badge>-->
+<!--                    </ion-text>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <ion-icon class="iconCalendar" name="calendar-clear-outline"></ion-icon>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <p class="valeurClass">55526</p>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <ion-icon class="iconLoading" name="hourglass"></ion-icon>-->
+<!--                    &lt;!&ndash;                <ion-icon class="iconLoading" name="refresh-circle"></ion-icon>&ndash;&gt;-->
+<!--                </ion-col>-->
+<!--                <ion-col size="3.5" class="smallPP">-->
+<!--                    <p>2021-01-01</p>-->
+<!--                </ion-col>-->
+<!--            </ion-row>-->
+<!--        </div>-->
+<!--        <br>-->
+
+<!--        <h5 style="margin-left: 10px">En 2017</h5>-->
+<!--        <div class="colorLigne">-->
+<!--            <ion-row>-->
+<!--                <ion-col>-->
+<!--                    <ion-text>-->
+<!--                        <ion-badge class="badgeIcon">-->
+<!--                            <ion-icon class="iconFolder text-white" name="folder"></ion-icon>-->
+<!--                        </ion-badge>-->
+<!--                    </ion-text>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <ion-icon class="iconCalendar" name="calendar-clear-outline"></ion-icon>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <p class="valeurClass">55526</p>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <ion-icon class="iconLoading" name="hourglass"></ion-icon>-->
+<!--                    &lt;!&ndash;                <ion-icon class="iconLoading" name="refresh-circle"></ion-icon>&ndash;&gt;-->
+<!--                </ion-col>-->
+<!--                <ion-col size="3.5" class="smallPP">-->
+<!--                    <p>2021-01-01</p>-->
+<!--                </ion-col>-->
+<!--            </ion-row>-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <div class="colorLigne">-->
+<!--            <ion-row>-->
+<!--                <ion-col>-->
+<!--                    <ion-text>-->
+<!--                        <ion-badge class="badgeIcon">-->
+<!--                            <ion-icon class="iconFolder text-white" name="folder"></ion-icon>-->
+<!--                        </ion-badge>-->
+<!--                    </ion-text>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <ion-icon class="iconCalendar" name="calendar-clear-outline"></ion-icon>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <p class="valeurClass">55526</p>-->
+<!--                </ion-col>-->
+<!--                <ion-col>-->
+<!--                    <ion-icon class="iconLoading" name="hourglass"></ion-icon>-->
+<!--                    &lt;!&ndash;                <ion-icon class="iconLoading" name="refresh-circle"></ion-icon>&ndash;&gt;-->
+<!--                </ion-col>-->
+<!--                <ion-col size="3.5" class="smallPP">-->
+<!--                    <p>2021-01-01</p>-->
+<!--                </ion-col>-->
+<!--            </ion-row>-->
+<!--        </div>-->
+    </div>
+
+
+    <!------------------------Vue graphique------------------------->
+    <div *ngIf="activeSegment.value === 'graphique' && dossiers">
+        <ion-card class="welcome-card" style="margin:auto; margin-top: 30px;">
+            <ion-card-header>
+                <ion-card-title style="text-align: center;"></ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <div [chart]="chartOptions" style="width:80%; height:390px;margin:auto;"></div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+</ion-content>

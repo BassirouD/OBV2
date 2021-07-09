@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Etat global des dossiers sur deux années </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content style="margin-top: 40px;">
+
+    <form #f="ngForm" (ngSubmit)="parametrer()">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item no-lines class="genre">
+                        <ion-label style="color: black;">Année 1</ion-label>
+                        <ion-input type="text"  [(ngModel)]="loadData.annee1" required="" name="annee1" style="color: black; font-weight: bold;"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-item no-lines class="genre">
+                        <ion-label style="color: black;">Année 2</ion-label>
+                        <ion-input type="text"  [(ngModel)]="loadData.annee2" required="" name="annee2" style="color: black; font-weight: bold;"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <div class="bouton">
+                <ion-button color="primary" expand="full" type="submit"><span>Afficher</span></ion-button>
+            </div>
+        </ion-grid>
+    </form>
+
+    <ion-button color="primary" expand="full" (click)="open()" *ngIf='dossiers'>
+        Vue graphique
+    </ion-button>
+    <div *ngIf="dossiers" style="margin-top: 40px;">
+        <!-- <ion-card *ngFor="let d of dossiers" style="margin: auto;">
+         <ion-icon name="folder-open-outline" style="color:white; font-size:20px;"></ion-icon>
+         <p style="font-size: 20px;color:white;">Nombre dossier : {{d.count}}</p>
+         <p style="font-size: 20px; color:white;">Période : {{d.Periode}}</p>
+        </ion-card> -->
+        <ion-item *ngFor="let d of dossiers" style="height: 80px;">
+            <ion-avatar slot="start">
+                <img src="assets/folder.png" width="50" height="50">
+            </ion-avatar>
+            <ion-label>Période : {{d.Periode}}</ion-label>
+            <ion-label>Nombre : {{d.count}}</ion-label>
+        </ion-item>
+        <br>
+
+    </div>
+
+</ion-content>

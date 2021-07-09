@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "orbusBank",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

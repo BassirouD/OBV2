@@ -1,0 +1,393 @@
+<ion-header [translucent]="true" scrollEvents="true" (ionScroll)="onScroll($event)">
+  <ion-toolbar color="monvert">
+    <ion-title class="text-white">
+      Bienvenue, {{prenom}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="text-white" (click)="goToProfil()">
+        <ion-icon name="cog-outline" class="ionSizeSetting" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-row class="sticky-row">
+    <ion-col size="10">
+      <ion-text class="ion-padding-start" color="medium"
+                [ngClass]="{'location-visible': showLocationDetail, 'location-hidden': !showLocationDetail}">
+      </ion-text>
+      <ion-searchbar placeholder="Votre recherche ici"></ion-searchbar>
+    </ion-col>
+    <ion-col size="2">
+      <ion-button class="classButom text-white" fill="clear">
+        <ion-icon class="tailleIcon" name="options-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
+  <div class="cMilieu">
+      <div class="deplaceClass">
+          <br>
+          <h5 class="titleDec">Période d'analyse</h5>
+
+          <ion-row>
+              <ion-col>
+                  <ion-card class="text-center classSelect">
+                      <ion-item>
+                          <ion-label>Code</ion-label>
+                          <ion-select value="notifications" interface="action-sheet" (ionChange)="checkcode($event)">
+                              <ion-select-option  *ngFor="let c of codeForms" value={{c.codeformulaire}}>{{c.nomformulaire}}</ion-select-option>
+                          </ion-select>
+                      </ion-item>
+                  </ion-card>
+              </ion-col>
+              <ion-col>
+                  <ion-card class="text-center classSelect">
+                      <ion-item>
+                          <ion-row>
+                              <span>Année: </span>
+                          </ion-row>
+                          <ion-row>
+                              <ion-input type="text" name="annee" (ionChange)="checkannee($event)"></ion-input>
+                          </ion-row>
+                      </ion-item>
+                  </ion-card>
+              </ion-col>
+          </ion-row>
+
+      </div>
+  </div>
+
+<!--  <ion-slides [options]="featuredSlideOpts">-->
+<!--    <ion-slide *ngFor="let f of featured" class="featured-slide" routerLink="/details">-->
+<!--&lt;!&ndash;      <img [src]="f.img">&ndash;&gt;-->
+<!--      <div class="info config">-->
+<!--        <ion-text color="dark" slot="end">-->
+<!--          <ion-badge class="badgeIcon">-->
+<!--            <ion-icon class="iconFolder" name="folder"></ion-icon>-->
+<!--          </ion-badge>-->
+<!--        </ion-text>-->
+<!--        <span>-->
+<!--          <mat-icon>folder</mat-icon>-->
+<!--          <ion-text color="secondary"> {{ f.rating }} </ion-text>{{ f.ratings }}-->
+<!--        </span>-->
+<!--          <div class="spanBlue">-->
+<!--              <span>-->
+<!--                <ion-icon name="location-outline"></ion-icon> {{ f.distance }}-->
+<!--             </span>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--    </ion-slide>-->
+<!--  </ion-slides>-->
+
+
+
+<!--    <ion-slides [options]="featuredSlideOpts">-->
+<!--        <ion-slide class="featured-slide" (click)="goToFolderList()">-->
+
+<!--            <ion-card class="p1">-->
+<!--                <div>-->
+<!--                    <ion-row>-->
+<!--                        <ion-col size="7">-->
+<!--                            <ion-text>-->
+<!--                                <ion-badge class="badgeIcon">-->
+<!--                                    <ion-icon class="iconFolder text-white" name="folder"></ion-icon>-->
+<!--                                </ion-badge>-->
+<!--                            </ion-text>-->
+<!--                        </ion-col>-->
+<!--                        <ion-col class="cValeur" size="5">-->
+<!--                            <h5>480</h5>-->
+<!--                        </ion-col>-->
+<!--&lt;!&ndash;                        <div class="postionClass">&ndash;&gt;-->
+<!--&lt;!&ndash;                            &ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                    </ion-row>-->
+<!--                    <ion-row>-->
+<!--                        <div class="decaleVersDroits">-->
+<!--                        <span>-->
+<!--                            <h5>Nombre total de dossier</h5>-->
+<!--                        </span>-->
+<!--                        <span>-->
+<!--                            <p>Par an</p>-->
+<!--                        </span>-->
+<!--                        </div>-->
+<!--                    </ion-row>-->
+<!--                    <ion-row class="spanBlue text-white" size="12">-->
+<!--                        <div>-->
+<!--                            <span>-->
+<!--                                 <p class="ctt">Voir sur an</p>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                    </ion-row>-->
+<!--&lt;!&ndash;                    <div class="spanBlue">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span class="text-center text-white">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <p>Voir sur deux ans</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </ion-card>-->
+<!--            <ion-card class="p1">-->
+<!--                <div>-->
+<!--                    <ion-row>-->
+<!--                        <ion-col size="7">-->
+<!--                            <ion-text>-->
+<!--                                <ion-badge class="badgeIcon">-->
+<!--                                    <ion-icon class="iconFolder text-white" name="folder"></ion-icon>-->
+<!--                                </ion-badge>-->
+<!--                            </ion-text>-->
+<!--                        </ion-col>-->
+<!--                        <ion-col class="cValeur" size="5">-->
+<!--                            <h5>480</h5>-->
+<!--                        </ion-col>-->
+<!--                        &lt;!&ndash;                        <div class="postionClass">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            &ndash;&gt;-->
+<!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                    </ion-row>-->
+<!--                    <ion-row>-->
+<!--                        <div class="decaleVersDroits">-->
+<!--                        <span>-->
+<!--                            <h5>Nombre total de dossier</h5>-->
+<!--                        </span>-->
+<!--                            <span>-->
+<!--                            <p>Par mois</p>-->
+<!--                        </span>-->
+<!--                        </div>-->
+<!--                    </ion-row>-->
+<!--                    <ion-row class="spanBlue text-white" size="12">-->
+<!--                        <div>-->
+<!--                            <span>-->
+<!--                                <p class="ctt">Voir sur mois</p>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                    </ion-row>-->
+<!--                </div>-->
+<!--            </ion-card>-->
+<!--            <ion-card class="p1">-->
+<!--                <div>-->
+<!--                    <ion-row>-->
+<!--                        <ion-col size="7">-->
+<!--                            <ion-text>-->
+<!--                                <ion-badge class="badgeIcon">-->
+<!--                                    <ion-icon class="iconFolder text-white" name="folder"></ion-icon>-->
+<!--                                </ion-badge>-->
+<!--                            </ion-text>-->
+<!--                        </ion-col>-->
+<!--                        <ion-col class="cValeur" size="5">-->
+<!--                            <h5>480</h5>-->
+<!--                        </ion-col>-->
+<!--                        &lt;!&ndash;                        <div class="postionClass">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            &ndash;&gt;-->
+<!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                    </ion-row>-->
+<!--                    <ion-row>-->
+<!--                        <div class="decaleVersDroits">-->
+<!--                        <span>-->
+<!--                            <h5>Nombre total de dossier</h5>-->
+<!--                        </span>-->
+<!--                            <span>-->
+<!--                            <p>Par jour</p>-->
+<!--                        </span>-->
+<!--                        </div>-->
+<!--                    </ion-row>-->
+<!--                    <ion-row class="spanBlue text-white" size="12">-->
+<!--                        <div>-->
+<!--                            <span>-->
+<!--                                <p class="ctt">Voir sur jours</p>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                    </ion-row>-->
+<!--                </div>-->
+<!--            </ion-card>-->
+<!--        </ion-slide>-->
+
+<!--        <ion-slide class="featured-slide" (click)="goToFolderListMounth()">-->
+<!--            -->
+<!--        </ion-slide>-->
+
+
+<!--        <ion-slide class="featured-slide" (click)="goToFolderListDay()">-->
+<!--            -->
+<!--        </ion-slide>-->
+
+
+<!--    </ion-slides>-->
+
+    <ion-slides [options]="featuredSlideOpts" class="cSlide">
+        <ion-slide>
+            <ion-card class="p1" (click)="goToFolderList()">
+                <div>
+                    <ion-row>
+                        <ion-col size="7">
+                            <ion-text>
+                                <ion-badge class="badgeIcon">
+                                    <ion-icon class="iconFolder text-white" name="folder"></ion-icon>
+                                </ion-badge>
+                            </ion-text>
+                        </ion-col>
+                        <ion-col class="cValeur" size="5">
+                            <h5>480</h5>
+                        </ion-col>
+                        <!--                        <div class="postionClass">-->
+                        <!--                            -->
+                        <!--                        </div>-->
+                    </ion-row>
+                    <ion-row>
+                        <div class="decaleVersDroits">
+                        <span>
+                            <h5>Nombre total de dossier</h5>
+                        </span>
+                            <span>
+                            <p>Par an</p>
+                        </span>
+                        </div>
+                    </ion-row>
+                    <ion-row class="spanBlue text-white" size="12">
+                        <div>
+                            <span>
+                                 <p class="ctt">Voir sur an</p>
+                            </span>
+                        </div>
+                    </ion-row>
+                </div>
+            </ion-card>
+            <ion-card class="p1 card2" (click)="goToFolderListMounth()">
+                <div>
+                    <ion-row>
+                        <ion-col size="7">
+                            <ion-text>
+                                <ion-badge class="badgeIcon">
+                                    <ion-icon class="iconFolder text-white" name="folder"></ion-icon>
+                                </ion-badge>
+                            </ion-text>
+                        </ion-col>
+                        <ion-col class="cValeur" size="5">
+                            <h5>480</h5>
+                        </ion-col>
+                        <!--                        <div class="postionClass">-->
+                        <!--                            -->
+                        <!--                        </div>-->
+                    </ion-row>
+                    <ion-row>
+                        <div class="decaleVersDroits">
+                        <span>
+                            <h5>Nombre total de dossier</h5>
+                        </span>
+                            <span>
+                            <p>Par mois</p>
+                        </span>
+                        </div>
+                    </ion-row>
+                    <ion-row class="spanBlue text-white" size="12">
+                        <div>
+                            <span>
+                                <p class="ctt">Voir sur mois</p>
+                            </span>
+                        </div>
+                    </ion-row>
+                </div>
+            </ion-card>
+            <ion-card class="p1" (click)="goToFolderListDay()">
+                <div>
+                    <ion-row>
+                        <ion-col size="7">
+                            <ion-text>
+                                <ion-badge class="badgeIcon">
+                                    <ion-icon class="iconFolder text-white" name="folder"></ion-icon>
+                                </ion-badge>
+                            </ion-text>
+                        </ion-col>
+                        <ion-col class="cValeur" size="5">
+                            <h5>480</h5>
+                        </ion-col>
+                        <!--                        <div class="postionClass">-->
+                        <!--                            -->
+                        <!--                        </div>-->
+                    </ion-row>
+                    <ion-row>
+                        <div class="decaleVersDroits">
+                        <span>
+                            <h5>Nombre total de dossier</h5>
+                        </span>
+                            <span>
+                            <p>Par jour</p>
+                        </span>
+                        </div>
+                    </ion-row>
+                    <ion-row class="spanBlue text-white" size="12">
+                        <div>
+                            <span>
+                                <p class="ctt">Voir sur jours</p>
+                            </span>
+                        </div>
+                    </ion-row>
+                </div>
+            </ion-card>
+        </ion-slide>
+    </ion-slides>
+
+    <ion-row class="classAlign">
+        <ion-col size="9"><span class="text-info" (click)="goToFolderList()">Liste des dossiers</span></ion-col>
+        <ion-col size="3"><span class="text-info">Voir tout</span></ion-col>
+    </ion-row>
+
+    <br>
+
+    <div class="colorLigne">
+        <ion-row>
+            <ion-col>
+                <ion-text>
+                    <ion-badge class="badgeIcon">
+                        <ion-icon class="iconFolder text-white" name="folder"></ion-icon>
+                    </ion-badge>
+                </ion-text>
+            </ion-col>
+            <ion-col>
+                <ion-icon class="iconCalendar" name="calendar-clear-outline"></ion-icon>
+            </ion-col>
+            <ion-col>
+                <p class="valeurClass">55526</p>
+            </ion-col>
+            <ion-col>
+                <ion-icon class="iconLoading" name="hourglass"></ion-icon>
+<!--                <ion-icon class="iconLoading" name="refresh-circle"></ion-icon>-->
+            </ion-col>
+            <ion-col size="3.5" class="smallPP">
+                <p>2021-01-01</p>
+            </ion-col>
+        </ion-row>
+    </div>
+    <br>
+
+    <div class="colorLigne">
+        <ion-row>
+            <ion-col>
+                <ion-text>
+                    <ion-badge class="badgeIcon">
+                        <ion-icon class="iconFolder text-white" name="folder"></ion-icon>
+                    </ion-badge>
+                </ion-text>
+            </ion-col>
+            <ion-col>
+                <ion-icon class="iconCalendar" name="calendar-clear-outline"></ion-icon>
+            </ion-col>
+            <ion-col>
+                <p class="valeurClass">55526</p>
+            </ion-col>
+            <ion-col>
+                <ion-icon class="iconLoading" name="hourglass"></ion-icon>
+                <!--                <ion-icon class="iconLoading" name="refresh-circle"></ion-icon>-->
+            </ion-col>
+            <ion-col size="3.5" class="smallPP">
+                <p>2021-01-01</p>
+            </ion-col>
+        </ion-row>
+    </div>
+    <br>
+</ion-content>
+

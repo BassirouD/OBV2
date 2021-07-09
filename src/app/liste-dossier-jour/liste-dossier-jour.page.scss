@@ -1,0 +1,254 @@
+.colorBadge{
+    background-color: #f4f5f8;
+    width: 180px;
+}
+
+#container {
+    text-align: center;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#container strong {
+    font-size: 20px;
+    line-height: 26px;
+}
+
+#container p {
+    font-size: 16px;
+    line-height: 22px;
+
+    color: #8c8c8c;
+
+    margin: 0;
+}
+
+#container a {
+    text-decoration: none;
+}
+
+ion-slides {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.featured-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+ion-searchbar {
+    --icon-color: var(--ion-color-medium);
+}
+
+ion-content {
+    --padding-top: 30px;
+}
+
+.sticky-row {
+    position: sticky;
+    top: calc(env(safe-area-inset-top) - 30px);
+    z-index: 2;
+    background: #4c8dff;
+    box-shadow: 0px 9px 11px -15px rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.info-row {
+    background: #4c8dff;
+    position: sticky;
+    top: calc(env(safe-area-inset-top) - 40px);
+    z-index: 2;
+}
+
+ion-refresher {
+    padding-top: calc(env(safe-area-inset-top) + 50px);
+}
+
+.location-visible {
+    opacity: 1;
+    transition: .5s;
+}
+
+.location-hidden {
+    opacity: 0;
+    transition: .5s;
+}
+
+.classButom{
+    margin-bottom: 13px;
+}
+
+.tailleIcon{
+    height: 80px;
+    height: 80px;
+    margin-right: 15px;
+}
+
+ion-header{
+    background: #4c8dff;
+}
+
+.ionSizeSetting{
+    width: 30px;
+    height: 30px;
+}
+
+.cMilieu{
+    //background: #e6e6e6;
+}
+
+ion-badge{
+    border-radius: 3px;
+}
+
+.badgeIcon{
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.iconFolder{
+    width: 30px;
+    height: 30px;
+}
+
+.iconCalendar{
+    width: 30px;
+    height: 30px;
+    margin-top: 15px;
+}
+
+.config{
+    border: 2px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    border-radius: 10px;
+}
+
+.spanBlue{
+    background: #4c8dff;
+}
+
+.p1{
+    text-align: start;
+    width: 240px;
+    height: 193px;
+    border-radius: 15px;
+}
+
+.cValeur{
+    margin-top: 15px;
+}
+
+.decaleVersDroits{
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+.postionClass{
+    //position: relative;
+}
+
+.titlePosition{
+    margin-bottom: 20px;
+    background-color: #f4f5f8;
+    border-radius: 5px;
+    margin-left: 180px;
+    position: absolute;
+    margin-bottom: 100px;
+}
+
+.valeurClass{
+    margin-top: 15px;
+}
+
+.iconLoading{
+    width: 30px;
+    height: 30px;
+    margin-top: 15px;
+}
+
+.colorLigne{
+    //background: #f4f5f8;
+    border-radius: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.classAlign{
+    margin-left: 10px;
+}
+
+.classV{
+    margin-left: 300px;
+    margin-top: 0px;
+}
+
+.classV2{
+    margin-top: 0px;
+}
+
+.smallPP{
+    margin-top: 15px;
+}
+
+.deplaceClass{
+    margin-left: 10px;
+}
+
+.cIon-Segmenent{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.cardTaille{
+    width: auto;
+    height: auto;
+}
+
+.classSelect{
+    border-radius: 30px;
+}
+
+//.div-image {
+//    width: 400px;
+//    height: 400px;
+//    overflow: hidden;
+//}
+
+//.image-zoom:hover {
+//    transform: scale(1.2);
+//}
+
+.titleDec{
+    margin-left: 15px;
+}
+
+.btnValider{
+    margin-left: 10px;
+    margin-right: 15px;
+}
+
+.classBtn{
+    border-radius: 30px;
+}
